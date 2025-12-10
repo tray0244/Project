@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mysql-user:
+    image: mysql:8.0
+    container_name: delivery-user-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: delivery_user
+      TZ: Asia/Seoul
+    ports:
+      - "3307:3306"
+    command: # 한글 깨짐 방지 설정
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db_data/user:/var/lib/mysql # 데이터가 날아가지 않게 로컬에 저장
