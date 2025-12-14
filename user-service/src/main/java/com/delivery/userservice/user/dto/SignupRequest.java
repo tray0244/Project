@@ -23,11 +23,17 @@ public class SignupRequest {
 
     // DTO -> Entiry 변환 메서드 (암호화된 비밀번호를 받아서 처리)
     public User toEntity(String encryptedPassword){
+        UserRole userRole;
+        try{
+            userRole = UserRole.valueOf(this.role.toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e){
+            throw new IllegalArgumentException("유효하지 않은 역할입니다." + this.role);
+        }
         return new User(
                 this.email,
                 encryptedPassword,
                 this.name,
-                UserRole.valueOf(this.role), // String -> Enum 변환
+                userRole,
                 this.phoneNumber
         );
     }
