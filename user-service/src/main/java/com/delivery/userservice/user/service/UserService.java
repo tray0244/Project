@@ -27,7 +27,7 @@ public class UserService {
         if(userRepository.existsByEmail(request.getEmail())){
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
-        String encodedPassword = passwordEncoder.encode(request.getPassword());;
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
         User user = request.toEntity(encodedPassword);
 
         return UserResponse.from(userRepository.save(user));
